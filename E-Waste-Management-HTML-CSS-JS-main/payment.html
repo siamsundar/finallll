@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    header {
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
+    }
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    input[type="button"].btn {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    input[type="button"].btn:hover {
+      background-color: #3e8e41;
+    }
+
+    .payment-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px;
+    }
+
+    .payment-list li {
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .payment-list li:last-child {
+      border-bottom: none;
+    }
+
+    .payment-list button {
+      background-color: #ff0000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .payment-list button:hover {
+      background-color: #cc0000;
+    }
+
+    .qr-code-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 150px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Payment List</h1>
+  </header>
+  <main>
+    <div class="form-container">
+      <form>
+        <label for="customer-name">Customer Name:</label>
+        <input type="text" id="customer-name" name="customer-name"><br><br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price"><br><br>
+        <input type="button" value="Add Payment" id="add-payment" class="btn">
+      </form>
+      <div class="qr-code-container" id="qr-code-container"></div>
+    </div>
+    <ul class="payment-list" id="payment-list"></ul>
+  </main>
+
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script>
+    const paymentList = document.getElementById('payment-list');
+    const addPaymentButton = document.getElementById('add-payment');
+    const qrCodeContainer = document.getElementById('qr-code-container');
+    const upiID = "siamsundar007@okicici";
+
+    addPaymentButton.addEventListener('click', addPayment);
+
+    function addPayment() {
+      const customerName = document.getElementById('customer-name').value;
+      const price = document.getElementById('price').value;
+
+      if (customerName && price) {
+        const paymentListItem = document.createElement('li');
+        paymentListItem.textContent = `Customer: ${customerName}, Price: ${price}`;
+        
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => {
+          paymentList.removeChild(paymentListItem);
+          qrCodeContainer.innerHTML = '';
+        });
+        
+        paymentListItem.appendChild(removeButton);
+        paymentList.appendChild(paymentListItem);
+
+        generateQRCode(price);
+
+        // clear input fields
+        document.getElementById('customer-name').value = '';
+        document.getElementById('price').value = '';
+      }
+    }
+
+    function generateQRCode(price) {
+      qrCodeContainer.innerHTML = ''; // clear any existing QR code
+      const upiLink = `upi://pay?pa=${upiID}&am=${price}&cu=INR`;
+      new QRCode(qrCodeContainer, {
+        text: upiLink,
+        width: 128,
+        height: 128
+      });
+    }
+  </script>
+  <button><a href="./admin.html">Go Back<a></button>
+</body>
+</html>

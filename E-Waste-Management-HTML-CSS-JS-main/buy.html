@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td input[type="number"] {
+            width: 50px;
+            padding: 5px;
+        }
+
+        td button {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        td button:hover {
+            background-color: #218838;
+        }
+
+        .cart-btn {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cart-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #totalContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #totalContainer h3 {
+            color: #333;
+        }
+
+        #totalContainer .cart-btn {
+            width: 200px;
+        }
+
+        #qrCode {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+    <h2>E-Waste Cart</h2>
+    <table id="ewasteTable">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price (USD)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- This will be dynamically populated -->
+        </tbody>
+    </table>
+    <a href="#" class="cart-btn" id="calculateBtn">Calculate Total</a>
+
+    <!-- Container for displaying total -->
+    <div id="totalContainer" style="display: none;">
+        <h3>Total: <span id="totalAmount">$0.00</span></h3>
+        <a href="#" class="cart-btn" id="checkoutBtn">Proceed to Checkout</a>
+        <div id="qrCode"></div>
+    </div>
+
+    <script>
+        // Sample data for e-waste items (you can replace this with your own data)
+        const ewasteItems = [
+            { name: "Smartphone", price: 300 },
+            { name: "Laptop", price: 1000 },
+            { name: "Tablet", price: 500 }
+        ];
+
+        // Array to store items added to cart
+        const cart = [];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const tbody = document.querySelector("#ewasteTable tbody");
+            const calculateBtn = document.querySelector("#calculateBtn");
+            const totalContainer = document.querySelector("#totalContainer");
+            const totalAmount = document.querySelector("#totalAmount");
+            const checkoutBtn = document.querySelector("#checkoutBtn");
+            const qrCodeContainer = document.querySelector("#qrCode");
+
+            // Populate table with e-waste items
+            ewasteItems.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td><input type="number" min="1" value="1" class="quantity"></td>
+                    <td>$${item.price}</td>
+                    <td><button class="addToCartBtn">Add to Cart</button></td>
+                `;
+                tbody.appendChild(row);
+
+                // Add event listener for each "Add to Cart" button
+                const addToCartBtn = row.querySelector(".addToCartBtn");
+                addToCartBtn.addEventListener("click", function() {
+                    const quantity = parseInt(row.querySelector("input.quantity").value);
+                    const itemTotal = item.price * quantity;
+                    cart.push({ name: item.name, quantity: quantity, total: itemTotal });
+                    alert(`Added to cart: ${quantity} ${item.name}(s)`);
+                });
+            });
+
+            // Calculate total and show the total container
+            calculateBtn.addEventListener("click", function() {
+                let total = 0;
+                cart.forEach(item => {
+                    total += item.total;
+                });
+                totalAmount.textContent = `$${total.toFixed(2)}`;
+                totalContainer.style.display = "block";
+            });
+
+            // Generate QR code when "Proceed to Checkout" is clicked
+            checkoutBtn.addEventListener("click", function(event) {
+                event.preventDefault();
+                qrCodeContainer.innerHTML = ""; // Clear previous QR code
+                const total = parseFloat(totalAmount.textContent.replace('$', ''));
+                new QRCode(qrCodeContainer, {
+                    text: `upi://pay?pa=siamsundar007@okicici&am=${total.toFixed(2)}&cu=INR`,
+                    width: 128,
+                    height: 128
+                });
+            });
+        });
+    </script>
+</body>
+</html>

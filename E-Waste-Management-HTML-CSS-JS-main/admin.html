@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: coral;
+        text-align: center; /* add this to center the image */
+    }
+
+    h1{
+        text-align: center;
+        background-color: darkkhaki;
+        color: brown;
+    }
+
+    #navbar {
+        background-color: #f1f1f1;
+        padding: 10px;
+        overflow: hidden;
+        text-align: center; 
+    }
+
+    #navbar a {
+        display: inline-block; 
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 4px; 
+        transition: background-color 0.2s ease; 
+    }
+
+    #navbar a:hover {
+        background-color: #daa412;
+        color: black;
+        transform: translateY(-2px); /* added hover effect */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* added box-shadow */
+    }
+
+    #navbar a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #content {
+        padding: 20px;
+        text-align: center; /* added text-align center */
+    }
+
+    #manage-products {
+        margin-top: 20px;
+    }
+
+    #manage-products ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #manage-products li {
+        margin-bottom: 10px;
+    }
+
+    #manage-products input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    #show-checkbox-table {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px; /* added border-radius */
+    }
+
+    #show-checkbox-table:hover {
+        background-color: #3e8e41;
+        transform: translateY(-2px); /* added hover effect */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* added box-shadow */
+    }
+
+    #checkbox-table-container {
+        display: none;
+        margin-top: 20px;
+    }
+
+    #checkbox-table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #checkbox-table-container th, #checkbox-table-container td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    #checkbox-table-container th {
+        background-color: #f7f7f7;
+    }
+
+    /* add this to center the image */
+    .centered-image {
+        display: block;
+        margin: 0 auto;
+        height: 400px;
+        width: 800px;
+    }
+</style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div id="navbar">
+        <a href="./payment.html" id="payments">Payment List</a>
+        <a href="./contactus.html" id="contactus">Contact Us</a>
+        <a href="./order.html" id="order">Order Status</a>
+        <a href="#" id="manage">Manage Products</a>
+    </div>
+    <div id="content">
+        <!-- add the image here -->
+        <img src="./e.jpg" alt="Centered Image" class="centered-image">
+    </div>
+
+    <script>
+         document.getElementById('payments').addEventListener('click', function() {
+    document.getElementById('content').innerHTML = `
+        <h2>Payment List</h2>
+    `;
+});
+        document.getElementById('manage').addEventListener('click', function() {
+    document.getElementById('content').innerHTML =  `
+                <h2>Manage Products</h2>
+                <ul id="manage-products">
+                    <li><input type="checkbox" id="cpu"> CPU</li>
+                    <li><input type="checkbox" id="monitor"> Monitor</li>
+                    <li><input type="checkbox" id="keyboard"> Keyboard</li>
+                    <li><input type="checkbox" id="mouse"> Mouse</li>
+                    <li><input type="checkbox" id="printer"> Printer</li>
+                    <li><input type="checkbox" id="battery"> Battery</li>
+                </ul>
+                <button id="show-checkbox-table">Show Checkbox Table</button>
+                <div id="checkbox-table-container" style="display: none;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Select</th>
+                        <th>Item Number</th>
+                      </tr>
+                    </thead>
+                    <tbody id="checkbox-table-body">
+                      <!-- checkbox items will be rendered here -->
+                    </tbody>
+                  </table>
+                </div>
+            `;
+            
+            const showCheckboxTableButton = document.getElementById('show-checkbox-table');
+            const checkboxTableContainer = document.getElementById('checkbox-table-container');
+            const checkboxTableBody = document.getElementById('checkbox-table-body');
+
+            showCheckboxTableButton.addEventListener('click', () => {
+              checkboxTableContainer.style.display = checkboxTableContainer.style.display === 'none'? 'block' : 'none';
+            });
+
+            // render checkbox items (example data)
+            const checkboxItems = [
+              { id: 1, number: 'ITM001' },
+              { id: 2, number: 'ITM002' },
+              { id: 3, number: 'ITM003' },
+              //...
+            ];
+
+            checkboxItems.forEach((item) => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td><input type="checkbox" id="checkbox-${item.id}" /></td>
+                <td>${item.number}</td>
+              `;
+              checkboxTableBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>

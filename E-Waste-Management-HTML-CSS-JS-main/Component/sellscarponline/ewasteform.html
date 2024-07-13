@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Waste Recycling Form</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Form Styles */
+    form {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    select {
+      padding: 10px 20px;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+
+    /* Step Styles */
+   .step {
+      margin-bottom: 20px;
+    }
+
+   .step label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><center>E-Waste Recycling Form</center></h1>
+  </header>
+  <main>
+    <form>
+      <div class="step">
+        <label>Step 1: Select E-Waste Type</label>
+        <select id="ewaste-type">
+          <option value="computers">Computers</option>
+          <option value="laptops">Laptops</option>
+          <option value="batteries">Batteries</option>
+          <option value="cell phones">Cell Phones</option>
+          <option value="printers">Printers</option>
+          <option value="televisions">Televisions</option>
+          <option value="other">Other (please specify)</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <label>Step 2: Choose Recycling Option</label>
+        <select id="recycling-option">
+          <option value="pickup">Schedule a Pickup</option>
+          <option value="dropoff">Drop Off at a Collection Center</option>
+          <option value="mailin">Mail In Your E-Waste</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <label>Step 3: Enter Quantity and Location</label>
+        <input type="number" id="quantity" placeholder="Enter Quantity">
+        <select id="location">
+          <option value="">Select District</option>
+          <option value="Ariyalur">Ariyalur</option>
+          <option value="Chengalpattu">Chengalpattu</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Coimbatore">Coimbatore</option>
+          <option value="Cuddalore">Cuddalore</option>
+          <option value="Dharmapuri">Dharmapuri</option>
+          <option value="Dindigul">Dindigul</option>
+          <option value="Erode">Erode</option>
+          <option value="Kallakurichi">Kallakurichi</option>
+          <option value="Kanchipuram">Kanchipuram</option>
+          <option value="Kanyakumari">Kanyakumari</option>
+          <option value="Karur">Karur</option>
+          <option value="Krishnagiri">Krishnagiri</option>
+          <option value="Madurai">Madurai</option>
+          <option value="Mayiladuthurai">Mayiladuthurai</option>
+          <option value="Nagapattinam">Nagapattinam</option>
+          <option value="Namakkal">Namakkal</option>
+          <option value="Nilgiris">Nilgiris</option>
+          <option value="Perambalur">Perambalur</option>
+          <option value="Pudukkottai">Pudukkottai</option>
+          <option value="Ramanathapuram">Ramanathapuram</option>
+          <option value="Ranipet">Ranipet</option>
+          <option value="Salem">Salem</option>
+          <option value="Sivaganga">Sivaganga</option>
+          <option value="Thanjavur">Thanjavur</option>
+          <option value="Theni">Theni</option>
+          <option value="Thiruvallur">Thiruvallur</option>
+          <option value="Thiruvannamalai">Thiruvannamalai</option>
+          <option value="Thiruvarur">Thiruvarur</option>
+          <option value="Tiruchirappalli">Tiruchirappalli</option>
+          <option value="Tirunelveli">Tirunelveli</option>
+          <option value="Tirupathur">Tirupathur</option>
+          <option value="Tiruppur">Tiruppur</option>
+          <option value="Tiruvallur">Tiruvallur</option>
+          <option value="Vellore">Vellore</option>
+          <option value="Viluppuram">Viluppuram</option>
+          <option value="Virudhunagar">Virudhunagar</option>
+        </select>
+      </div>
+        <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const district = document.querySelector('#location').value;
+          window.location.href = district + ".html";
+        });
+      </script>
+      
+      <button type="submit">Submit</button>
+      </form>
+      </main>
+      </body>
+      </html>

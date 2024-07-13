@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Awareness Video</title>
+    <style>
+        .video-container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="video" width="100%" height="100%" controls>
+            <source src="How To Recycle E-Waste _ Wilma Rodrigues _ #OneForChange.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <script>
+        const video = document.getElementById('video');
+
+video.addEventListener('play', function() {
+    console.log('Video is playing');
+});
+
+video.addEventListener('ended', function() {
+    console.log('Video has ended');
+});
+    </script>
+</body>
+</html>

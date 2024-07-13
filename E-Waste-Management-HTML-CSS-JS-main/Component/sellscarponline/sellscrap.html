@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Waste Product Selection</title>
+    <style>
+        /* Add some basic styling to make the page look decent */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to bottom, #34C759, #8BC34A); /* Green gradient background */
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+        .select-container {
+            width: 50%;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* White background for the container */
+            padding-bottom: 30px; /* Add some extra padding at the bottom */
+        }
+        .select-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .select-dropdown {
+            width: 100%;
+            padding: 15px; /* Increased padding for a larger search bar */
+            font-size: 18px; /* Increased font size for a larger search bar */
+            border: 1px solid #ccc;
+            border-radius: 5px; /* Rounded corners for the search bar */
+        }
+        #list li {
+            display: none; /* Hide list items by default */
+        }
+        .selected {
+            background-color: #ccc; /* Gray background for selected item */
+            color: #fff; /* White text color for selected item */
+        }
+        .search-button {
+            background-color: #4CAF50; /* Green background for the search button */
+            color: #fff; /* White text color for the search button */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #3e8e41; /* Darker green background on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="select-container">
+        <h2>E-Waste Product location</h2>
+        <input id="search" type="text" placeholder="Search...">
+        <button class="search-button" id="search-button">Search</button>
+        <ul id="list">
+            <li>Ariyalur</li>
+            <li>Chennai</li>
+            <li>Coimbatore</li>
+            <li>Cuddalore</li>
+            <li>Dharmapuri</li>
+            <li>Dindigul</li>
+            <li>Erode</li>
+            <li>Kancheepuram</li>
+            <li>Kanyakumari</li>
+            <li>Karur</li>
+            <li>Krishnagiri</li>
+            <li>Madurai</li>
+            <li>Nagapattinam</li>
+            <li>Namakkal</li>
+            <li>Nilgiris</li>
+            <li>Perambalur</li>
+            <li>Pudukkottai</li>
+            <li>Ramanathapuram</li>
+            <li>Salem</li>
+            <li>Sivaganga</li>
+            <li>Thanjavur</li>
+            <li>Theni</li>
+            <li>Thoothukudi</li>
+            <li>Tiruchirappalli</li>
+            <li>Tirunelveli</li>
+            <li>Tiruppur</li>
+            <li>Tiruvallur</li>
+            <li>Tiruvannamalai</li>
+            <li>Vellore</li>
+            <li>Viluppuram</li>
+            <li>Virudhunagar</li>
+        </ul>
+    </div>
+    <script>
+        const searchInput = document.querySelector("#search");
+const searchButton = document.querySelector("#search-button");
+const listItems = document.querySelectorAll("#list li");
+
+searchInput.addEventListener("input", onSearch);
+searchButton.addEventListener("click", onSearch);
+
+listItems.forEach((el) => {
+  el.addEventListener("click", onSelect);
+});
+
+function onSearch() {
+  const filter = searchInput.value.toUpperCase();
+  listItems.forEach((el) => {
+    const text = el.textContent.toUpperCase();
+    el.style.display = text.includes(filter) ? "block" : "none";
+  });
+}
+
+function onSelect(event) {
+  listItems.forEach((el) => {
+    el.classList.remove("selected");
+  });
+  event.target.classList.add("selected");
+  searchInput.value = event.target.textContent;
+
+  // Open a new page with the selected district
+  const selectedDistrict = event.target.textContent;
+  window.location.href = `district.html?district=${selectedDistrict}`;
+}
+    </script>
+    </body>
+    </html>
